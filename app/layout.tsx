@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -150,6 +150,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
         <GoogleTagManager gtmId="GTM-WNBS7272" />
+        <GoogleAnalytics gaId="G-8JPW3GWT3D" />
         <Navbar />
         <main className="flex-grow flex flex-col pt-[72px]">
           {children}
