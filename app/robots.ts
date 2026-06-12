@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/_next/", "/api/"],
     },
-    sitemap: "https://dacnis.com/sitemap.xml",
+    sitemap: "https://www.dacnis.com/sitemap.xml",
   };
 }

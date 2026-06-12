@@ -140,8 +140,12 @@ export default function Footer() {
             © {currentYear} Dacnis. All rights reserved. Made in Tunisia.
           </p>
           <div className="flex gap-6 text-slate-500 text-xs">
-            <span className="hover:text-slate-300 transition-colors cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-slate-300 transition-colors cursor-pointer">Terms of Service</span>
+            <NextLink href="/privacy-policy" className="hover:text-slate-300 transition-colors">
+              Privacy Policy
+            </NextLink>
+            <NextLink href="/terms-of-service" className="hover:text-slate-300 transition-colors">
+              Terms of Service
+            </NextLink>
           </div>
         </div>
       </div>
