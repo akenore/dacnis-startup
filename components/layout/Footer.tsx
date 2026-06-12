@@ -22,10 +22,11 @@ export default function Footer() {
   ];
 
   const partners = [
-    { name: "Gisysco", href: "https://gisysco.com" },
-    { name: "Sepat Express", href: "https://sepat-express.com" },
-    { name: "Koktahome", href: "https://koktahome.com" },
-    { name: "Motobike TN", href: "https://motobike.com.tn" },
+    { name: "Gisysco", href: "https://www.gisysco.com" },
+    { name: "Mustache Prod", href: "https://share.google/57s1V7S4jFVYJtv9e" },
+    { name: "Sepat Express", href: "https://www.sepat-express.com" },
+    { name: "Koktahome", href: "https://www.koktahome.com" },
+    { name: "Motobike TN", href: "https://www.motobike.com.tn" },
   ];
 
   return (
@@ -33,7 +34,7 @@ export default function Footer() {
       {/* Grid background effect */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
-      
+
       {/* Decorative Glow */}
       <div className="absolute -bottom-48 -left-48 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-48 -right-48 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -44,11 +45,11 @@ export default function Footer() {
           <div className="flex flex-col gap-6">
             <NextLink href="/">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-light.png"
                 alt="Dacnis Logo"
-                width={150}
-                height={38}
-                className="w-auto h-8 object-contain"
+                width={220}
+                height={55}
+                className="w-auto h-11 object-contain"
               />
             </NextLink>
             <p className="text-slate-400 text-sm leading-relaxed">

@@ -36,17 +36,16 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-slate-950/80 backdrop-blur-md border-b border-white/10 py-3"
           : "bg-transparent py-5"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2 relative z-50">
           <Image
-            src="/images/logo.png"
+            src="/images/logo-light.png"
             alt="Dacnis Logo"
             width={220}
             height={55}
@@ -63,9 +62,8 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-sm font-medium tracking-wide transition-colors duration-200 relative py-1 ${
-                  isActive ? "text-cyan-400" : "text-slate-300 hover:text-white"
-                }`}
+                className={`text-sm font-medium tracking-wide transition-colors duration-200 relative py-1 ${isActive ? "text-cyan-400" : "text-slate-300 hover:text-white"
+                  }`}
               >
                 {link.name}
                 {isActive && (
@@ -102,9 +100,8 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed inset-0 bg-slate-950/95 z-40 flex flex-col justify-center px-10 gap-8 transition-all duration-300 md:hidden ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-y-4"
-        }`}
+        className={`fixed inset-0 bg-slate-950/95 z-40 flex flex-col justify-center px-10 gap-8 transition-all duration-300 md:hidden ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-y-4"
+          }`}
       >
         <div className="flex flex-col gap-6 text-2xl font-semibold">
           {navLinks.map((link) => {
@@ -113,9 +110,8 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`transition-colors duration-200 ${
-                  isActive ? "text-cyan-400" : "text-slate-300 hover:text-white"
-                }`}
+                className={`transition-colors duration-200 ${isActive ? "text-cyan-400" : "text-slate-300 hover:text-white"
+                  }`}
               >
                 {link.name}
               </Link>

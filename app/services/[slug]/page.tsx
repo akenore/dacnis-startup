@@ -175,7 +175,7 @@ export default function ServiceDetails({ params }: PageProps) {
           </div>
           
           <div className="lg:col-span-4 flex flex-col gap-5 p-6 rounded-2xl bg-white/5 border border-white/5 detail-hero-anim">
-            <h3 className="text-slate-400 text-xs uppercase tracking-wider font-bold">Tech Stack Deployed</h3>
+            <p className="text-slate-400 text-xs uppercase tracking-wider font-bold">Tech Stack Deployed</p>
             <div className="flex flex-wrap gap-2">
               {service.techStack.map((tech) => (
                 <span 
@@ -230,9 +230,9 @@ export default function ServiceDetails({ params }: PageProps) {
                   <span className="absolute top-4 right-4 text-xs font-bold font-mono text-slate-600">
                     0{index + 1}
                   </span>
-                  <h4 className="text-base font-bold text-white mt-2">
+                  <h3 className="text-base font-bold text-white mt-2">
                     {step.title}
-                  </h4>
+                  </h3>
                   <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
                     {step.description}
                   </p>

@@ -176,7 +176,7 @@ export default function ServicesIndex() {
                       isEven ? "lg:order-2" : "lg:order-1"
                     }`}>
                       <div>
-                        <h4 className="text-slate-400 text-xs uppercase tracking-wider font-bold mb-3">Core Technology Stack</h4>
+                        <p className="text-slate-400 text-xs uppercase tracking-wider font-bold mb-3">Core Technology Stack</p>
                         <div className="flex flex-wrap gap-2">
                           {service.techStack.map((tech) => (
                             <span 
@@ -190,7 +190,7 @@ export default function ServicesIndex() {
                       </div>
 
                       <div>
-                        <h4 className="text-slate-400 text-xs uppercase tracking-wider font-bold mb-3">Audience & Reach</h4>
+                        <p className="text-slate-400 text-xs uppercase tracking-wider font-bold mb-3">Audience & Reach</p>
                         <p className="text-slate-400 text-xs leading-relaxed">
                           Tailored for enterprise grade deployment, supporting custom security controls, low-latency scaling, and Generative Engine indexability.
                         </p>

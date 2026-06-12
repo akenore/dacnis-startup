@@ -382,7 +382,7 @@ export default function HireUs() {
           {/* Details column */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             <GlassCard className="p-8 hover:border-white/10" hoverable={false}>
-              <h3 className="text-white font-bold text-lg mb-6">Direct Contact</h3>
+              <h2 className="text-white font-bold text-lg mb-6">Direct Contact</h2>
               
               <div className="flex flex-col gap-5 text-sm">
                 <div className="flex items-start gap-4">
@@ -390,7 +390,7 @@ export default function HireUs() {
                     <Mail className="w-5 h-5" />
                   </span>
                   <div>
-                    <h5 className="text-slate-400 text-xs font-semibold">General Inquiry</h5>
+                    <p className="text-slate-400 text-xs font-semibold">General Inquiry</p>
                     <a href="mailto:hello@dacnis.tn" className="text-white font-bold hover:text-cyan-400 transition-colors">
                       hello@dacnis.tn
                     </a>
@@ -402,7 +402,7 @@ export default function HireUs() {
                     <Phone className="w-5 h-5" />
                   </span>
                   <div>
-                    <h5 className="text-slate-400 text-xs font-semibold">Call Our Office</h5>
+                    <p className="text-slate-400 text-xs font-semibold">Call Our Office</p>
                     <a href="tel:+21624203141" className="text-white font-bold hover:text-cyan-400 transition-colors">
                       +216 24 203 141
                     </a>
@@ -414,7 +414,7 @@ export default function HireUs() {
                     <MapPin className="w-5 h-5" />
                   </span>
                   <div>
-                    <h5 className="text-slate-400 text-xs font-semibold">HQ Location</h5>
+                    <p className="text-slate-400 text-xs font-semibold">HQ Location</p>
                     <span className="text-white font-bold leading-relaxed block text-sm">
                       Avenue Ibn El Jazzar<br />
                       Avicenne Building, Apt B101, 1st Floor<br />
