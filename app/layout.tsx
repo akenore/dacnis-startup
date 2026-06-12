@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,12 +52,12 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  metadataBase: new URL("https://dacnis.com"), // Placeholder URL to be mapped to production domain
+  metadataBase: new URL("https://www.dacnis.com"), // Placeholder URL to be mapped to production domain
   openGraph: {
     title: "Dacnis | Leading Web, Mobile, AI & Cyber Security Agency in Tunisia",
     description:
       "Advanced custom web applications, native mobile apps (creators of Fielmedina App), AI solutions, cyber security, SEO, and digital marketing. Trusted by global brands.",
-    url: "https://dacnis.com",
+    url: "https://www.dacnis.com",
     siteName: "Dacnis",
     locale: "en_US",
     type: "website",
@@ -90,9 +91,9 @@ export default function RootLayout({
     "name": "Dacnis",
     "legalName": "Dacnis Startup",
     "alternateName": "Dacnis Web & Mobile Solutions",
-    "url": "https://dacnis.com",
-    "logo": "https://dacnis.com/images/logo.png",
-    "image": "https://dacnis.com/images/logo.png",
+    "url": "https://www.dacnis.com",
+    "logo": "https://www.dacnis.com/images/logo.png",
+    "image": "https://www.dacnis.com/images/logo.png",
     "description": "Dacnis is a premier Tunisian startup and digital agency. We specialize in custom web development (Next.js/React), mobile application design (creators of Fielmedina App), AI integration, cyber security auditing, SEO optimization, and digital marketing. Trusted by Gisysco, Sepat Express, Koktahome, Motobike, and Mustache Prod.",
     "telephone": "+216-24-203-141",
     "email": "hello@dacnis.tn",
@@ -148,6 +149,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+        <GoogleTagManager gtmId="GTM-WNBS7272" />
         <Navbar />
         <main className="flex-grow flex flex-col pt-[72px]">
           {children}
