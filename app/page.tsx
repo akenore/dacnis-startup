@@ -48,48 +48,21 @@ export default function Home() {
 
     // MOBILE / SMALL SCREEN ANIMATIONS (under 768px)
     mm.add("(max-width: 767px)", () => {
-      // Faster hero entry animation
+      // Fast, smooth hero entrance on load (no scroll dependence)
       const heroTimeline = gsap.timeline();
       heroTimeline.fromTo(
         ".hero-anim-item",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" }
+        { y: 15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.08, ease: "power2.out" }
       );
 
-      // Fast, lightweight services reveal
-      gsap.fromTo(
-        ".service-card-anim",
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.4,
-          stagger: 0.08,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".services-trigger",
-            start: "top 90%",
-            toggleActions: "play none none none"
-          }
-        }
-      );
-
-      // Fast partners reveal
-      gsap.fromTo(
-        ".partner-anim-item",
-        { scale: 0.95, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.4,
-          stagger: 0.05,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: ".partners-trigger",
-            start: "top 90%"
-          }
-        }
-      );
+      // On mobile, set stats directly to avoid layout thrashing stutters on scroll
+      const statsItems = gsap.utils.toArray(".stat-number");
+      statsItems.forEach((stat: any) => {
+        const targetVal = stat.getAttribute("data-target") || "0";
+        const suffix = (stat.id === "stat-exp" || stat.id === "stat-projects" || stat.id === "stat-clients") ? "+" : "";
+        stat.textContent = targetVal + suffix;
+      });
     });
 
     // DESKTOP / TABLET ANIMATIONS (768px and up)
@@ -153,37 +126,37 @@ export default function Home() {
           }
         }
       );
-    });
 
-    // Global stats counters (slightly optimized duration)
-    const statsItems = gsap.utils.toArray(".stat-number");
-    statsItems.forEach((stat: any) => {
-      const targetVal = parseInt(stat.getAttribute("data-target") || "0", 10);
-      gsap.fromTo(stat,
-        { textContent: "0" },
-        {
-          textContent: targetVal,
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: stat,
-            start: "top 90%",
-            toggleActions: "play none none none"
-          },
-          snap: { textContent: 1 },
-          onUpdate: function () {
-            if (stat.id === "stat-exp") {
-              stat.innerHTML = stat.textContent + "+";
-            } else if (stat.id === "stat-projects") {
-              stat.innerHTML = stat.textContent + "+";
-            } else if (stat.id === "stat-clients") {
-              stat.innerHTML = stat.textContent + "+";
-            } else {
-              stat.innerHTML = stat.textContent;
+      // Stats counter animation (only run on Desktop/Tablet)
+      const statsItems = gsap.utils.toArray(".stat-number");
+      statsItems.forEach((stat: any) => {
+        const targetVal = parseInt(stat.getAttribute("data-target") || "0", 10);
+        gsap.fromTo(stat,
+          { textContent: "0" },
+          {
+            textContent: targetVal,
+            duration: 1.5,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: stat,
+              start: "top 90%",
+              toggleActions: "play none none none"
+            },
+            snap: { textContent: 1 },
+            onUpdate: function () {
+              if (stat.id === "stat-exp") {
+                stat.innerHTML = stat.textContent + "+";
+              } else if (stat.id === "stat-projects") {
+                stat.innerHTML = stat.textContent + "+";
+              } else if (stat.id === "stat-clients") {
+                stat.innerHTML = stat.textContent + "+";
+              } else {
+                stat.innerHTML = stat.textContent;
+              }
             }
           }
-        }
-      );
+        );
+      });
     });
 
     return () => mm.revert();
@@ -321,7 +294,8 @@ export default function Home() {
                     alt={`${p.name} Logo`}
                     width={110}
                     height={36}
-                    className="max-h-10 w-auto object-contain"
+                    style={{ width: "auto", height: "auto" }}
+                    className="max-h-10 object-contain"
                   />
                 ) : (
                   <span className="text-slate-300 font-mono font-black text-sm tracking-wide">

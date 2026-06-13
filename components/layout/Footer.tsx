@@ -47,9 +47,10 @@ export default function Footer() {
               <Image
                 src="/images/logo-light.png"
                 alt="Dacnis Logo"
-                width={220}
-                height={55}
-                className="w-auto h-11 object-contain"
+                width={260}
+                height={65}
+                style={{ width: "auto", height: "auto" }}
+                className="max-h-14 object-contain"
               />
             </NextLink>
             <p className="text-slate-400 text-sm leading-relaxed">
