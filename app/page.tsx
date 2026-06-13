@@ -44,67 +44,118 @@ export default function Home() {
   };
 
   useGSAP(() => {
-    // Hero Text Entrance Animation
-    const heroTimeline = gsap.timeline();
-    heroTimeline.fromTo(
-      ".hero-anim-item",
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }
-    );
+    const mm = gsap.matchMedia();
 
-    // Floating cards interactive animations
-    gsap.to(".floating-card-1", {
-      y: 15,
-      repeat: -1,
-      yoyo: true,
-      duration: 3,
-      ease: "sine.inOut"
-    });
-    gsap.to(".floating-card-2", {
-      y: -15,
-      repeat: -1,
-      yoyo: true,
-      duration: 3.5,
-      ease: "sine.inOut",
-      delay: 0.5
-    });
+    // MOBILE / SMALL SCREEN ANIMATIONS (under 768px)
+    mm.add("(max-width: 767px)", () => {
+      // Faster hero entry animation
+      const heroTimeline = gsap.timeline();
+      heroTimeline.fromTo(
+        ".hero-anim-item",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" }
+      );
 
-    // Services Scroll Animation
-    gsap.fromTo(
-      ".service-card-anim",
-      { y: 80, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".services-trigger",
-          start: "top 80%",
-          toggleActions: "play none none none"
+      // Fast, lightweight services reveal
+      gsap.fromTo(
+        ".service-card-anim",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-trigger",
+            start: "top 90%",
+            toggleActions: "play none none none"
+          }
         }
-      }
-    );
+      );
 
-    // Partners Logos Animation
-    gsap.fromTo(
-      ".partner-anim-item",
-      { scale: 0.9, opacity: 0 },
-      {
-        scale: 1,
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: ".partners-trigger",
-          start: "top 85%"
+      // Fast partners reveal
+      gsap.fromTo(
+        ".partner-anim-item",
+        { scale: 0.95, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: ".partners-trigger",
+            start: "top 90%"
+          }
         }
-      }
-    );
+      );
+    });
 
-    // Stats counter animation
+    // DESKTOP / TABLET ANIMATIONS (768px and up)
+    mm.add("(min-width: 768px)", () => {
+      // Rich hero entry
+      const heroTimeline = gsap.timeline();
+      heroTimeline.fromTo(
+        ".hero-anim-item",
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }
+      );
+
+      // Floating cards active only on desktop for best rendering performance
+      gsap.to(".floating-card-1", {
+        y: 15,
+        repeat: -1,
+        yoyo: true,
+        duration: 3,
+        ease: "sine.inOut"
+      });
+      gsap.to(".floating-card-2", {
+        y: -15,
+        repeat: -1,
+        yoyo: true,
+        duration: 3.5,
+        ease: "sine.inOut",
+        delay: 0.5
+      });
+
+      // Rich services reveal
+      gsap.fromTo(
+        ".service-card-anim",
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-trigger",
+            start: "top 80%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      // Rich partners reveal
+      gsap.fromTo(
+        ".partner-anim-item",
+        { scale: 0.9, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: ".partners-trigger",
+            start: "top 85%"
+          }
+        }
+      );
+    });
+
+    // Global stats counters (slightly optimized duration)
     const statsItems = gsap.utils.toArray(".stat-number");
     statsItems.forEach((stat: any) => {
       const targetVal = parseInt(stat.getAttribute("data-target") || "0", 10);
@@ -112,7 +163,7 @@ export default function Home() {
         { textContent: "0" },
         {
           textContent: targetVal,
-          duration: 2,
+          duration: 1.5,
           ease: "power2.out",
           scrollTrigger: {
             trigger: stat,
@@ -121,7 +172,6 @@ export default function Home() {
           },
           snap: { textContent: 1 },
           onUpdate: function () {
-            // Add '+' or other suffixes if needed
             if (stat.id === "stat-exp") {
               stat.innerHTML = stat.textContent + "+";
             } else if (stat.id === "stat-projects") {
@@ -136,6 +186,7 @@ export default function Home() {
       );
     });
 
+    return () => mm.revert();
   }, { scope: containerRef });
 
   return (

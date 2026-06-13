@@ -28,6 +28,18 @@ export default function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
@@ -100,7 +112,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed inset-0 bg-slate-950/95 z-40 flex flex-col justify-center px-10 gap-8 transition-all duration-300 md:hidden ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-y-4"
+        className={`fixed inset-0 bg-slate-950/98 z-40 flex flex-col justify-start pt-28 pb-10 px-8 gap-6 transition-all duration-300 md:hidden overflow-y-auto ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-y-4"
           }`}
       >
         <div className="flex flex-col gap-6 text-2xl font-semibold">
