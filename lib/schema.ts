@@ -46,7 +46,6 @@ export function organizationSchema(locale: Locale, dict: Dictionary) {
     hasMap: site.mapsUrl,
     foundingDate: site.foundingDate,
     foundingLocation: { "@type": "Place", name: "Sousse, Tunisia" },
-    founder: { "@type": "Person", name: site.founder, worksFor: { "@id": orgId } },
     areaServed: [
       { "@type": "Country", name: "Tunisia" },
       { "@type": "Place", name: "Europe" },

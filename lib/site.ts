@@ -24,7 +24,6 @@ export const site = {
   },
   geo: { latitude: 35.8256, longitude: 10.6369 },
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Avenue%20Ibn%20El%20Jazzar%2C%20Sousse%204000%2C%20Tunisia",
-  founder: "Muhammad Aslan",
   foundingDate: "2025-09",
   /** Profiles that describe the same company. Add LinkedIn, Facebook and Google Business Profile URLs here. */
   sameAs: [] as string[],

@@ -16,7 +16,7 @@ const brandLine = (b: Brand) => `- [${b.name}](${brandUrl(b, "en")})${b.activity
 function facts() {
   const a = site.address;
   return [
-    `Founded: September 2025 in Sousse, Tunisia, by ${site.founder}.`,
+    "Founded: September 2025 in Sousse, Tunisia.",
     `Address: ${a.street}, ${a.locality} ${a.postalCode}, ${a.country}.`,
     `Contact: ${site.email}, ${site.phone.display}.`,
     "Languages: the site is in English (/en) and French (/fr); the team works in French, English and Arabic.",

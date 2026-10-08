@@ -44,7 +44,7 @@ export const fr: Dictionary = {
     aiStatus: "STATUT : EN LIGNE",
     summaryTitle: "Dacnis en bref",
     summary: [
-      "Dacnis est une agence logicielle et digitale fondée en septembre 2025 à Sousse, en Tunisie, par Muhammad Aslan.",
+      "Dacnis est une agence logicielle et digitale fondée en septembre 2025 à Sousse, en Tunisie.",
       "Nous proposons le développement web, le développement d'applications iOS et Android, l'intégration de l'IA, les audits de cybersécurité, le SEO et le GEO, et le marketing digital.",
       "Nous avons créé FielMedina, un guide de voyage hors ligne des médinas tunisiennes, et nous travaillons avec IsTech et Mustache Prod en tant que partenaires.",
     ],
@@ -137,7 +137,7 @@ export const fr: Dictionary = {
         date: "Sept. 2025",
         title: "Création de Dacnis",
         description:
-          "Dacnis est fondée à Sousse par Muhammad Aslan et réunit des ingénieurs et des marketeurs cumulant plus de 14 ans d'expérience.",
+          "Dacnis ouvre ses portes à Sousse avec des ingénieurs et des marketeurs cumulant plus de 14 ans d'expérience.",
       },
       {
         date: "Oct. 2025",
@@ -458,7 +458,6 @@ export const fr: Dictionary = {
       "Dacnis est une agence logicielle et digitale à Sousse, en Tunisie. Nous concevons, développons et faisons grandir sites web, applications mobiles et produits d'IA. Créateurs de l'application FielMedina.",
     company: "Entreprise",
     services: "Services",
-    clients: "Clients",
     partners: "Partenaires",
     rights: "© {year} Dacnis. Tous droits réservés. Fabriqué en Tunisie.",
     privacy: "Confidentialité",

@@ -48,7 +48,7 @@ export const en = {
     aiStatus: "STATUS: LIVE",
     summaryTitle: "Dacnis in brief",
     summary: [
-      "Dacnis is a software and digital agency founded in September 2025 in Sousse, Tunisia, by Muhammad Aslan.",
+      "Dacnis is a software and digital agency founded in September 2025 in Sousse, Tunisia.",
       "We offer web development, iOS and Android app development, AI integration, cyber security audits, SEO and GEO, and digital marketing.",
       "We created FielMedina, an offline travel guide to Tunisia's old medinas, and we work with IsTech and Mustache Prod as partners.",
     ],
@@ -141,7 +141,7 @@ export const en = {
         date: "Sept 2025",
         title: "Dacnis is founded",
         description:
-          "Dacnis is founded in Sousse by Muhammad Aslan, bringing together engineers and marketers with over 14 years of combined experience.",
+          "Dacnis opens in Sousse with engineers and marketers who bring over 14 years of combined experience.",
       },
       {
         date: "Oct 2025",
@@ -461,7 +461,6 @@ export const en = {
       "Dacnis is a software and digital agency in Sousse, Tunisia. We design, build and grow websites, mobile apps and AI products. Creators of the FielMedina app.",
     company: "Company",
     services: "Services",
-    clients: "Clients",
     partners: "Partners",
     rights: "© {year} Dacnis. All rights reserved. Made in Tunisia.",
     privacy: "Privacy policy",
