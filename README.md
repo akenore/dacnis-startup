@@ -1,137 +1,97 @@
-# Dacnis Startup Website
+# Dacnis website
 
-Welcome to the official Next.js codebase for the **Dacnis** startup website. This multi-page application is designed for modern web indexing (SEO) and Generative Engine Optimization (GEO/LMO) for AI systems. It features clean Tailwind CSS (v4) styles, smooth GSAP transitions, and fully responsive layouts.
+Website of Dacnis, software and digital agency in Sousse, Tunisia: www.dacnis.com.
+Next.js 16 (App Router), React 19, Tailwind CSS 4. English and French, built for search
+engines (SEO) and AI assistants (GEO), with a careers section managed from a dashboard.
 
----
-
-## 🚀 Getting Started
-
-First, run the development server:
+## Getting started
 
 ```bash
+bun install
+cp .env.example .env   # then fill in the values
 bun dev
-# or
-npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production: `bun run build`, then `node server.js` (or `bun run start`).
 
----
-
-## 📁 Project Architecture & Directories
-
-We use a modular, component-driven architecture to make the application easy to maintain, debug, and expand:
+## Structure
 
 ```text
-├── app/
-│   ├── layout.tsx         # Global layout (Geist font, Navbar, Footer, JSON-LD Schema)
-│   ├── globals.css        # Global CSS (Tailwind imports, custom color variables, grid layers)
-│   ├── page.tsx           # Home page (Hero, Trust bar, Services preview, Stats, CTA)
-│   ├── about/
-│   │   └── page.tsx       # About page (Milestones, mission, core values, timeline)
-│   ├── services/
-│   │   ├── page.tsx       # Services listing catalog page
-│   │   └── [slug]/
-│   │       └── page.tsx   # Dynamic service details page (FAQs, process steps)
-│   ├── hire-us/
-│   │   └── page.tsx       # Contact form wrapped in Suspense (service pre-selection)
-│   ├── sitemap.ts         # Dynamic SEO Sitemap generator
-│   └── robots.ts          # Search engines crawler guidelines
-├── components/
-│   ├── layout/
-│   │   ├── Navbar.tsx     # Floating glassmorphic header navigation
-│   │   └── Footer.tsx     # Footer including office info & trust links
-│   └── ui/
-│       └── GlassCard.tsx  # Reusable panel with backdrop-blur & glow gradients
-├── lib/
-│   └── services-data.ts   # Centralized database for services copy, features & FAQs
-└── public/
-    └── images/            # Standard logos, custom illustrations, and partner logos
+app/
+  [lang]/                 Public site, /en and /fr
+    page.tsx              Home
+    [page]/               about, hire-us, careers, privacy, terms (French slugs on /fr)
+    [page]/[slug]/        Job offer pages
+    services/             Services index and one page per service
+  dashboard/              Careers dashboard (job offers, applications), English only
+  api/send-email          "Start with us" form -> contact@dacnis.tn
+  api/apply               Job applications -> careers store + hr@dacnis.tn
+  og/[lang]/[card]        Social preview images
+  sitemap.ts, robots.ts, llms.txt/, llms-full.txt/
+proxy.ts                  Language detection on "/" and redirects from the old URLs
+dictionaries/en.ts, fr.ts All page text, per language
+lib/
+  routes.ts               Every URL, per language (French slugs)
+  services.ts             Service content, both languages
+  brands.ts               Clients and partners
+  site.ts                 Company facts (address, phone, emails): keep them identical everywhere
+  schema.ts, metadata.ts  JSON-LD and per-page metadata (canonical, hreflang, Open Graph)
+  server/careers.ts       Careers store (JSON file + CV folder)
 ```
 
----
+## Careers: posting a job
 
-## 🛠️ How to Maintain & Update Content
+1. Open `/dashboard` and sign in (`ADMIN_EMAIL` / `ADMIN_PASSWORD`).
+2. **New offer**: fill English and French, the publishing date and the last day to apply.
+   List fields take one item per line. Leave "Published" unchecked to keep a draft.
+3. Save. The offer is live at once on `/en/careers` and `/fr/carrieres`, in the sitemap,
+   in `llms.txt` and as a JobPosting for Google for Jobs. No deploy is needed.
 
-### 1. Modifying or Adding Services
-All text, capabilities, FAQs, and configurations for our 6 core services (Web Dev, Mobile Dev, AI, Cyber Security, SEO, Marketing) are stored in [services-data.ts](file:///Users/aslan/Desktop/Devs/dacnis/startup/lib/services-data.ts).
-- To edit any text, simply change the string in `servicesData`.
-- To add a new service, append a new object conforming to the `Service` interface. The details page (`/services/new-slug`) and dynamic sitemap will be generated automatically.
+An offer closes by itself after its last day (Tunis time): it moves to "Recently closed"
+for six months, its page shows a "closed" notice without a form, it leaves the sitemap,
+`llms.txt` and Google for Jobs, and the API refuses applications to it.
+**Close now** ends it immediately. A publishing date in the future schedules the offer.
 
-### 2. Customizing Global Styles
-Themes and variables are declared in [globals.css](file:///Users/aslan/Desktop/Devs/dacnis/startup/app/globals.css). We leverage **Tailwind v4** syntax for defining inline variables:
-```css
-@theme inline {
-  --color-background: var(--background);
-  /* Add custom theme tokens here */
-}
-```
+Each application is:
 
----
+- saved with its CV and listed in **Applications** (filter by offer, download the CV, reply
+  by email or WhatsApp, delete);
+- emailed to **hr@dacnis.tn** with the CV attached (needs `RESEND_API`);
+- followed, for the candidate, by a **Confirm on WhatsApp** button that opens WhatsApp with
+  a prefilled message to +216 24 203 141 (as on mustacheprod.com; no setup needed);
+- optionally announced by an automatic WhatsApp alert (below).
 
-## ⚙️ GSAP & React 19 Best Practices
-Since Next.js pre-renders pages on the server (SSR), GSAP animations must run **only** on the client side:
-1. **Client Hook**: We use the `@gsap/react` plugin's `useGSAP` hook, which handles target cleaning and prevents memory leaks upon route change.
-2. **Registration**: Always register plugins safely under window scope.
-3. **SSG Compatibility**: Wrap components that require layout calculations inside `"use client"` and execute animations inside `useGSAP`.
+### Data and backups
 
-Example:
-```typescript
-"use client";
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+Offers, applications and CVs live in `DATA_DIR` (default `./.data`): `careers.json` and a
+`cv/` folder. In production, set `DATA_DIR` to a folder outside the app directory so a
+redeploy never deletes it, and back it up. On first start with an empty folder, two sample
+internship offers are created (`lib/jobs-seed.ts`); edit or delete them in the dashboard.
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+### WhatsApp alerts (optional)
 
-export default function MyComponent() {
-  const containerRef = useRef(null);
-  useGSAP(() => {
-    gsap.from(".element", { opacity: 0, scrollTrigger: { trigger: ".trigger" } });
-  }, { scope: containerRef });
-  
-  return <div ref={containerRef} className="trigger"><div className="element" /></div>;
-}
-```
+Same setup as amelbenbrahim.com, through the official WhatsApp Business Cloud API (Meta):
 
----
+1. In Meta Business and developers.facebook.com, create a Business app with the WhatsApp
+   product, and add and verify a sending number (a dedicated number, not one used in the
+   WhatsApp app).
+2. In WhatsApp Manager, create a **Utility** template named `nouvelle_candidature`,
+   language French, for example:
+   `Nouvelle candidature sur dacnis.com : {{1}} pour le poste {{2}}. E-mail : {{3}}, téléphone : {{4}}.`
+3. Create a system user token with `whatsapp_business_messaging` -> `WHATSAPP_TOKEN`,
+   copy the phone number ID -> `WHATSAPP_PHONE_NUMBER_ID`, and set the receiving numbers in
+   `WHATSAPP_ALERT_TO` (e.g. `21624203141`).
+4. Restart the server. A failed alert never blocks an application: it is only logged.
 
-## 🔍 SEO & AI Crawler (LMO/GEO) Optimizations
-We implement cutting-edge indexing patterns so that AI models (Gemini, ChatGPT) and search engines recommend Dacnis:
-1. **JSON-LD Schema**: Located in [layout.tsx](file:///Users/aslan/Desktop/Devs/dacnis/startup/app/layout.tsx). It defines Dacnis as a `ProfessionalService` in Tunisia, citing Fielmedina App ownership and trusted clients.
-2. **Metadata**: Each page handles custom titles and Open Graph tags.
-3. **Structured Content**: FAQ accordions and lists help LLMs parse precise solutions.
-4. **Sitemap & Robots**: Standard compliant [sitemap.ts](file:///Users/aslan/Desktop/Devs/dacnis/startup/app/sitemap.ts) and [robots.ts](file:///Users/aslan/Desktop/Devs/dacnis/startup/app/robots.ts).
+## SEO and GEO
 
----
+- Every page: localized title and description, canonical URL, hreflang (en, fr, x-default),
+  Open Graph image from `app/og`.
+- JSON-LD graph on every page (company, website, FielMedina, services, FAQ, breadcrumbs,
+  clients and partners, job postings).
+- `robots.txt` allows search engines and AI crawlers; only `/api/` and `/dashboard` are blocked.
+- `llms.txt` and `llms-full.txt` are generated from the same data as the pages.
+- Animations are CSS only (`app/globals.css`): no animation library ships to the browser.
 
-## 🖼️ Next.js Image Component Guidelines
-To prevent Layout Shift (CLS) and ensure fast mobile loading speed, follow Next.js `<Image />` rules:
-- Always use the `Image` component from `next/image`.
-- Provide exact `width` and `height` properties for layout calculation, OR
-- Use the `fill` property inside a parent container that has `position: relative`.
-- Always declare descriptive `alt` tags.
-
----
-
-## 🐞 Where & How to Debug
-
-| Scenario | Issue Location | Debugging Steps |
-|---|---|---|
-| **Text or Service Content updates** | [services-data.ts](file:///Users/aslan/Desktop/Devs/dacnis/startup/lib/services-data.ts) | Edit copy in the corresponding service object. Verify locally. |
-| **Hydration mismatch / UI differences** | Client-only GSAP triggers | Make sure components using GSAP are marked `"use client"`. Avoid accessing `window` or `document` variables directly outside `useEffect` or `useGSAP`. |
-| **Routing / Dynamic Page failures** | [page.tsx (Detail)](file:///Users/aslan/Desktop/Devs/dacnis/startup/app/services/[slug]/page.tsx) | Note that Next.js 15+ page params are Promises. Always unwrap using `use(params)` inside client components or `await params` in server components. |
-| **Hire Us Form submission issues** | [page.tsx (Hire Us)](file:///Users/aslan/Desktop/Devs/dacnis/startup/app/hire-us/page.tsx) | The search params reader must remain inside a `<Suspense>` boundary. Check query string parameters (e.g. `/hire-us?service=seo`) to debug auto-selection. |
-| **Production Build Check** | Local command line | Run `bun run build` in the root folder. Inspect output to ensure static generation completes without TypeScript errors. |
-
----
-
-## 🛡️ Security Best Practices
-- **No Insecure Client-Side Calls**: Avoid placing API secret keys or credentials in client components. Use Next.js Server Actions or API routes under `app/api/` for secure backend workflows.
-- **Form Sanitization**: Sanitize user strings before outputting them to prevent cross-site scripting (XSS).
-- **Secure Dependencies**: Keep npm dependencies updated and inspect warnings using `bun pm audit` or `npm audit`.
+After deploying, submit `https://www.dacnis.com/sitemap.xml` in Google Search Console and
+Bing Webmaster Tools.

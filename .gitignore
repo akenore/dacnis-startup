@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# careers store (offers, applications, CVs)
+/.data
+!.env.example

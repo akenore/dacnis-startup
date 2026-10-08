@@ -1,152 +1,115 @@
-import Link from "next/image";
-import NextLink from "next/link";
-import { Mail, Phone, MapPin, ExternalLink, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
+import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { brandUrl, clients, partners } from "@/lib/brands";
+import { fill, type Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
+import { href, serviceKeys } from "@/lib/routes";
+import { services } from "@/lib/services";
+import { site } from "@/lib/site";
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
+export default function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const t = dict.footer;
   const companyLinks = [
-    { name: "About Us", href: "/about" },
-    { name: "Our Services", href: "/services" },
-    { name: "Hire Us / Start With Us", href: "/hire-us" },
+    { name: dict.nav.about, href: href(locale, "about") },
+    { name: dict.nav.services, href: href(locale, "services") },
+    { name: dict.nav.careers, href: href(locale, "careers") },
+    { name: dict.nav.ctaMobile, href: href(locale, "hire") },
   ];
-
-  const services = [
-    { name: "Web Development", href: "/services/web-development" },
-    { name: "Mobile Development", href: "/services/mobile-development" },
-    { name: "AI Integration", href: "/services/ai" },
-    { name: "Cyber Security", href: "/services/cyber-security" },
-    { name: "SEO Optimization", href: "/services/seo" },
-    { name: "Digital Marketing", href: "/services/digital-marketing" },
-  ];
-
-  const partners = [
-    { name: "Gisysco", href: "https://www.gisysco.com" },
-    { name: "Mustache Prod", href: "https://share.google/57s1V7S4jFVYJtv9e" },
-    { name: "Sepat Express", href: "https://www.sepat-express.com" },
-    { name: "Koktahome", href: "https://www.koktahome.com" },
-    { name: "Motobike TN", href: "https://www.motobike.com.tn" },
-  ];
+  const externalList = (items: typeof clients) => (
+    <ul className="flex flex-col gap-3">
+      {items.map((brand) => (
+        <li key={brand.name}>
+          <a
+            href={brandUrl(brand, locale)}
+            target="_blank"
+            rel="noopener"
+            className="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-1.5 group"
+          >
+            {brand.name}
+            <ExternalLink aria-hidden className="w-3 h-3 text-slate-500 group-hover:text-cyan-400 transition-colors" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
     <footer className="relative bg-slate-950 border-t border-white/5 pt-20 pb-10 overflow-hidden">
-      {/* Grid background effect */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
 
-      {/* Decorative Glow */}
-      <div className="absolute -bottom-48 -left-48 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-48 -right-48 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
-          {/* Brand Info */}
-          <div className="flex flex-col gap-6">
-            <NextLink href="/">
-              <Image
-                src="/images/logo-light.png"
-                alt="Dacnis Logo"
-                width={260}
-                height={65}
-                style={{ width: "auto", height: "auto" }}
-                className="max-h-14 object-contain"
-              />
-            </NextLink>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Dacnis is a leading Tunisian startup and digital agency. We design, build, and optimize next-generation software, apps, and marketing channels. Creators of the Fielmedina App.
-            </p>
-            <div className="flex flex-col gap-3 text-slate-300 text-sm">
-              <a href="mailto:contact@dacnis.tn" className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
-                <Mail className="w-4 h-4 text-cyan-400" />
-                contact@dacnis.tn
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
+          {/* NAP block: identical to the JSON-LD organization and llms.txt */}
+          <div className="flex flex-col gap-6 lg:col-span-2">
+            <Link href={href(locale, "home")} aria-label="Dacnis">
+              <Image src="/images/logo-light.png" alt="Dacnis" width={480} height={301} sizes="90px" className="h-14 w-auto" />
+            </Link>
+            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">{t.blurb}</p>
+            <address className="not-italic flex flex-col gap-3 text-slate-300 text-sm">
+              <a href={`mailto:${site.email}`} className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
+                <Mail aria-hidden className="w-4 h-4 text-cyan-400" />
+                {site.email}
               </a>
-              <a href="tel:+21624203141" className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
-                <Phone className="w-4 h-4 text-cyan-400" />
-                +216 24 203 141
+              <a href={site.phone.href} className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
+                <Phone aria-hidden className="w-4 h-4 text-cyan-400" />
+                {site.phone.display}
               </a>
-              <span className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-cyan-400 mt-1 shrink-0" />
+              <a href={site.mapsUrl} target="_blank" rel="noopener" className="flex items-start gap-3 hover:text-cyan-400 transition-colors">
+                <MapPin aria-hidden className="w-4 h-4 text-cyan-400 mt-1 shrink-0" />
                 <span className="leading-relaxed">
-                  Avenue Ibn El Jazzar<br />
-                  Avicenne Building, Apt B101, 1st Floor<br />
-                  Sousse 4000, Tunisia
+                  {locale === "fr" ? site.address.streetFr : site.address.street}
+                  <br />
+                  {site.address.locality} {site.address.postalCode}, {locale === "fr" ? site.address.countryFr : site.address.country}
                 </span>
-              </span>
-            </div>
+              </a>
+            </address>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">Company</h3>
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">{t.company}</h2>
             <ul className="flex flex-col gap-3">
               {companyLinks.map((link) => (
-                <li key={link.name}>
-                  <NextLink
-                    href={link.href}
-                    className="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-1 group"
-                  >
+                <li key={link.href}>
+                  <Link href={link.href} className="text-slate-400 hover:text-white transition-colors text-sm">
                     {link.name}
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 transition-all duration-200" />
-                  </NextLink>
+                  </Link>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">Our Services</h3>
-            <ul className="grid grid-cols-1 gap-3">
-              {services.map((service) => (
-                <li key={service.name}>
-                  <NextLink
-                    href={service.href}
-                    className="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-1 group"
-                  >
-                    {service.name}
-                  </NextLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Trusted By / Clients */}
-          <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">Trusted By</h3>
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mt-10 mb-6">{t.services}</h2>
             <ul className="flex flex-col gap-3">
-              {partners.map((partner) => (
-                <li key={partner.name}>
-                  <a
-                    href={partner.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-1.5 group"
-                  >
-                    {partner.name}
-                    <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-400 transition-colors" />
-                  </a>
+              {serviceKeys.map((key) => (
+                <li key={key}>
+                  <Link href={href(locale, `service:${key}`)} className="text-slate-400 hover:text-white transition-colors text-sm">
+                    {services[key].content[locale].title}
+                  </Link>
                 </li>
               ))}
-              <li className="mt-2 text-xs text-slate-500 italic">
-                Proud founder & development partner of the Fielmedina App.
-              </li>
             </ul>
+          </div>
+
+          <div>
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">{t.clients}</h2>
+            {externalList(clients)}
+          </div>
+
+          <div>
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">{t.partners}</h2>
+            {externalList(partners)}
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-slate-500 text-xs">
-            © {currentYear} Dacnis. All rights reserved. Made in Tunisia.
-          </p>
+          <p className="text-slate-500 text-xs">{fill(t.rights, { year: new Date().getFullYear() })}</p>
           <div className="flex gap-6 text-slate-500 text-xs">
-            <NextLink href="/privacy-policy" className="hover:text-slate-300 transition-colors">
-              Privacy Policy
-            </NextLink>
-            <NextLink href="/terms-of-service" className="hover:text-slate-300 transition-colors">
-              Terms of Service
-            </NextLink>
+            <Link href={href(locale, "privacy")} className="hover:text-slate-300 transition-colors">
+              {t.privacy}
+            </Link>
+            <Link href={href(locale, "terms")} className="hover:text-slate-300 transition-colors">
+              {t.terms}
+            </Link>
           </div>
         </div>
       </div>
