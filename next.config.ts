@@ -4,19 +4,27 @@ const isDev = process.env.NODE_ENV === "development";
 
 /*
  * Content Security Policy: only this site and Google Tag Manager / Google Analytics 4 (the
- * only tags in the GTM container) may load scripts, send data or frame content.
+ * only tags in the GTM container) may load scripts, send data or frame content. Origins follow
+ * Google's guide (developers.google.com/tag-platform/security/guides/csp), including GTM
+ * Preview Mode (tagmanager.google.com, gstatic, Google Fonts) so tags can be tested before publishing.
  * 'unsafe-inline' is needed by Next.js hydration scripts and the GTM snippet on static pages.
  * If a new tag is added in GTM (Meta Pixel, Hotjar, LinkedIn...), add its domains here or it
  * will be blocked: check the browser console after publishing the GTM container.
  */
 const google = "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://*.google.com https://*.google.tn";
+const gtmPreview = {
+  script: "https://tagmanager.google.com",
+  style: "https://*.googletagmanager.com https://tagmanager.google.com https://fonts.googleapis.com",
+  img: "https://ssl.gstatic.com https://www.gstatic.com",
+  font: "https://fonts.gstatic.com data:",
+};
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://*.googletagmanager.com`,
-  "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: blob: ${google}`,
-  "font-src 'self'",
-  `connect-src 'self' ${google}${isDev ? " ws:" : ""}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://*.googletagmanager.com ${gtmPreview.script}`,
+  `style-src 'self' 'unsafe-inline' ${gtmPreview.style}`,
+  `img-src 'self' data: blob: ${google} ${gtmPreview.img}`,
+  `font-src 'self' ${gtmPreview.font}`,
+  `connect-src 'self' ${google} https://pagead2.googlesyndication.com${isDev ? " ws:" : ""}`,
   "frame-src https://www.googletagmanager.com",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
@@ -55,6 +63,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
+      // GTM Preview Mode (Tag Assistant) opens the site with ?gtm_debug= and talks to it through
+      // window.opener, which COOP same-origin cuts. Relax COOP for those preview visits only;
+      // as the later rule, it overrides the value above.
+      {
+        source: "/:path*",
+        has: [{ type: "query", key: "gtm_debug" }],
+        headers: [{ key: "Cross-Origin-Opener-Policy", value: "unsafe-none" }],
+      },
       // AI assistants read these as plain text; an hour of caching keeps open offers current.
       { source: "/:file(llms.txt|llms-full.txt)", headers: [{ key: "Cache-Control", value: "public, max-age=3600" }] },
     ];
