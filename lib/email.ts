@@ -28,7 +28,7 @@ export function emailLayout(title: string, rows: Array<[string, string]>, body?:
   const bodyBlock = body
     ? `<div style="margin-top:25px;border-top:1px solid #e4e4e7;padding-top:15px;"><h3 style="margin-top:0;color:#18181b;font-size:16px;">${escapeHtml(body.title)}</h3><p style="background:#f4f4f5;padding:15px;border-left:4px solid #0891b2;border-radius:4px;margin:10px 0;white-space:pre-wrap;font-size:14px;line-height:1.6;color:#27272a;">${escapeHtml(body.text)}</p></div>`
     : "";
-  return `<div style="font-family:sans-serif;max-width:600px;margin:auto;padding:20px;border:1px solid #e4e4e7;border-radius:12px;background:#fafafa;color:#18181b;"><h2 style="color:#0891b2;border-bottom:2px solid #e4e4e7;padding-bottom:10px;margin-top:0;">${escapeHtml(title)}</h2><table style="width:100%;border-collapse:collapse;margin-top:15px;">${tableRows}</table>${bodyBlock}<div style="font-size:11px;color:#a1a1aa;text-align:center;margin-top:30px;border-top:1px solid #e4e4e7;padding-top:10px;">Sent from the dacnis.com website.</div></div>`;
+  return `<div style="font-family:sans-serif;max-width:600px;margin:auto;padding:20px;border:1px solid #e4e4e7;border-radius:12px;background:#fafafa;color:#18181b;"><h2 style="color:#0891b2;border-bottom:2px solid #e4e4e7;padding-bottom:10px;margin-top:0;">${escapeHtml(title)}</h2><table style="width:100%;border-collapse:collapse;margin-top:15px;">${tableRows}</table>${bodyBlock}<div style="font-size:11px;color:#a1a1aa;text-align:center;margin-top:30px;border-top:1px solid #e4e4e7;padding-top:10px;">Sent from the dacnis.tn website.</div></div>`;
 }
 
 export async function sendEmail(payload: {

@@ -5,7 +5,8 @@
 export const site = {
   name: "Dacnis",
   legalName: "Dacnis Startup",
-  url: "https://www.dacnis.com",
+  /** Live domain. Canonical URLs, hreflang, sitemap, Open Graph and JSON-LD are all built from it. */
+  url: "https://www.dacnis.tn",
   email: "contact@dacnis.tn",
   /** Job applications and careers questions. */
   hrEmail: "hr@dacnis.tn",
@@ -27,7 +28,8 @@ export const site = {
   foundingDate: "2025-09",
   /** Profiles that describe the same company. Add LinkedIn, Facebook and Google Business Profile URLs here. */
   sameAs: [] as string[],
-  analytics: { gtm: "GTM-WNBS7272", ga: "G-8JPW3GWT3D" },
+  /** Google Tag Manager container; it loads Google Analytics 4 (G-8JPW3GWT3D). */
+  analytics: { gtm: "GTM-WNBS7272" },
 } as const;
 
 /** Flagship product, designed and built by Dacnis. */

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
-import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import Navbar, { type NavCopy } from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/seo/JsonLd";
@@ -79,6 +79,7 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
   return (
     <html lang={lang} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+        {/* GA4 (G-8JPW3GWT3D) is loaded by this GTM container: loading it here too counted every visit twice. */}
         <GoogleTagManager gtmId={site.analytics.gtm} />
         <a
           href="#main"
@@ -92,7 +93,6 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
         </main>
         <Footer locale={lang} dict={dict} />
         <JsonLd data={graph(organizationSchema(lang, dict), websiteSchema())} />
-        <GoogleAnalytics gaId={site.analytics.ga} />
       </body>
     </html>
   );

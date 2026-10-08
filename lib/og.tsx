@@ -32,7 +32,7 @@ export async function renderOg({ title, kicker, place }: { title: string; kicker
           <div style={{ fontSize: 66, fontWeight: 700, lineHeight: 1.08, letterSpacing: -1.5 }}>{title}</div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24, color: "rgba(255,255,255,0.7)" }}>
-          <span>dacnis.com</span>
+          <span>dacnis.tn</span>
           <span>{place}</span>
         </div>
       </div>

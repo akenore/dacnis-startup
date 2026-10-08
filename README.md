@@ -1,6 +1,6 @@
 # Dacnis website
 
-Website of Dacnis, software and digital agency in Sousse, Tunisia: www.dacnis.com.
+Website of Dacnis, software and digital agency in Sousse, Tunisia: www.dacnis.tn.
 Next.js 16 (App Router), React 19, Tailwind CSS 4. English and French, built for search
 engines (SEO) and AI assistants (GEO), with a careers section managed from a dashboard.
 
@@ -83,7 +83,7 @@ Same setup as amelbenbrahim.com, through the official WhatsApp Business Cloud AP
    WhatsApp app).
 2. In WhatsApp Manager, create a **Utility** template named `nouvelle_candidature`,
    language French, for example:
-   `Nouvelle candidature sur dacnis.com : {{1}} pour le poste {{2}}. E-mail : {{3}}, téléphone : {{4}}.`
+   `Nouvelle candidature sur dacnis.tn : {{1}} pour le poste {{2}}. E-mail : {{3}}, téléphone : {{4}}.`
 3. Create a system user token with `whatsapp_business_messaging` -> `WHATSAPP_TOKEN`,
    copy the phone number ID -> `WHATSAPP_PHONE_NUMBER_ID`, and set the receiving numbers in
    `WHATSAPP_ALERT_TO` (e.g. `21624203141`).
@@ -99,5 +99,5 @@ Same setup as amelbenbrahim.com, through the official WhatsApp Business Cloud AP
 - `llms.txt` and `llms-full.txt` are generated from the same data as the pages.
 - Animations are CSS only (`app/globals.css`): no animation library ships to the browser.
 
-After deploying, submit `https://www.dacnis.com/sitemap.xml` in Google Search Console and
+After deploying, submit `https://www.dacnis.tn/sitemap.xml` in Google Search Console and
 Bing Webmaster Tools.
