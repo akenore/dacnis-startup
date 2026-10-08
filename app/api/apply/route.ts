@@ -1,10 +1,8 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
 import { NextResponse } from "next/server";
 import { emailLayout, escapeHtml, isEmail, sendEmail, text } from "@/lib/email";
 import { hasLocale } from "@/lib/i18n";
 import { jobStatus } from "@/lib/jobs";
-import { addApplication, cvDir, getJob, markApplicationEmailed, newId } from "@/lib/server/careers";
+import { addApplication, getJob, markApplicationEmailed, saveCv } from "@/lib/server/careers";
 import { clientIp, rateLimit } from "@/lib/server/rate-limit";
 import { alertNewApplication } from "@/lib/server/whatsapp";
 import { site } from "@/lib/site";
@@ -57,9 +55,7 @@ export async function POST(request: Request) {
 
   const extension = cv.name.split(".").pop()?.toLowerCase() ?? "pdf";
   const bytes = Buffer.from(await cv.arrayBuffer());
-  const file = `${newId()}.${extension}`;
-  await fs.mkdir(cvDir(), { recursive: true });
-  await fs.writeFile(path.join(cvDir(), file), bytes);
+  const file = await saveCv(extension, bytes);
 
   const phone = text(form.get("phone"), 40);
   const link = text(form.get("link"), 300);

@@ -1,7 +1,6 @@
-import { promises as fs } from "node:fs";
 import path from "node:path";
 import { isSignedIn } from "@/lib/server/auth";
-import { cvDir, getApplication } from "@/lib/server/careers";
+import { getApplication, readCv } from "@/lib/server/careers";
 
 // The type comes from the extension, never from what the candidate's browser reported.
 const types: Record<string, string> = {
@@ -17,7 +16,7 @@ export async function GET(_request: Request, { params }: RouteContext<"/dashboar
   const application = await getApplication(id);
   if (!application) return new Response("Not found", { status: 404 });
   try {
-    const file = await fs.readFile(path.join(cvDir(), path.basename(application.cv.file)));
+    const file = await readCv(application.cv.file);
     const filename = encodeURIComponent(application.cv.name);
     return new Response(file, {
       headers: {

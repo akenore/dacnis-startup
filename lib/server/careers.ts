@@ -37,9 +37,24 @@ interface StoreData {
   applications: Application[];
 }
 
-export const dataDir = () => path.resolve(process.env.DATA_DIR || path.join(process.cwd(), ".data"));
-const storeFile = () => path.join(dataDir(), "careers.json");
-export const cvDir = () => path.join(dataDir(), "cv");
+// The data folder is chosen at runtime and lives outside the build: turbopackIgnore keeps the
+// build from tracing (and shipping) the whole project because of this dynamic path.
+export const dataDir = () =>
+  path.resolve(/* turbopackIgnore: true */ process.env.DATA_DIR || path.join(/* turbopackIgnore: true */ process.cwd(), ".data"));
+const storeFile = () => path.join(/* turbopackIgnore: true */ dataDir(), "careers.json");
+const cvDir = () => path.join(/* turbopackIgnore: true */ dataDir(), "cv");
+/** basename() keeps a stored file name from pointing outside the CV folder. */
+const cvPath = (file: string) => path.join(/* turbopackIgnore: true */ cvDir(), path.basename(file));
+
+/** Saves an uploaded CV under a random name and returns that name. */
+export async function saveCv(extension: string, bytes: Buffer) {
+  const file = `${randomUUID()}.${extension}`;
+  await fs.mkdir(cvDir(), { recursive: true });
+  await fs.writeFile(cvPath(file), bytes);
+  return file;
+}
+
+export const readCv = (file: string) => fs.readFile(cvPath(file));
 
 // Shared through globalThis: route handlers and pages can be bundled as separate modules.
 const shared = globalThis as typeof globalThis & {
@@ -187,7 +202,7 @@ export async function deleteApplication(id: string) {
   await mutate((data) => {
     data.applications = data.applications.filter((a) => a.id !== id);
   });
-  if (record) await fs.rm(path.join(cvDir(), record.cv.file), { force: true });
+  if (record) await fs.rm(cvPath(record.cv.file), { force: true });
 }
 
 export const newId = () => randomUUID();

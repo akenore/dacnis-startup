@@ -1,0 +1,9 @@
+# pnpm settings for this single-package project (no workspace packages).
+#
+# pnpm blocks install scripts of dependencies until they are reviewed, and with
+# strictDepBuilds (default) an unreviewed one fails the install (ERR_PNPM_IGNORED_BUILDS).
+# - sharp: Next.js image optimisation; its script checks or fetches the native binary.
+# - unrs-resolver: only used by ESLint's import resolver; its script is not needed.
+allowBuilds:
+  sharp: true
+  unrs-resolver: false

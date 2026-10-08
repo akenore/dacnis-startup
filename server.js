@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- CommonJS entry point started by Plesk (Node.js app) */
 const { createServer } = require('http');
 const next = require('next');
 

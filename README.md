@@ -7,12 +7,18 @@ engines (SEO) and AI assistants (GEO), with a careers section managed from a das
 ## Getting started
 
 ```bash
-bun install
+pnpm install
 cp .env.example .env   # then fill in the values
-bun dev
+pnpm dev
 ```
 
-Production: `bun run build`, then `node server.js` (or `bun run start`).
+Production (Plesk): `pnpm install`, `pnpm build`, then start `server.js`.
+
+`pnpm-lock.yaml` pins the exact versions that were built and tested: commit it, so the server
+installs the same ones. `pnpm-workspace.yaml` tells pnpm which install scripts may run
+(`sharp` yes, `unrs-resolver` no); without it, pnpm 10.26+ stops with `ERR_PNPM_IGNORED_BUILDS`.
+If a future dependency adds an install script, pnpm will stop the same way: add it under
+`allowBuilds` (`true` to run it, `false` to skip it).
 
 ## Structure
 
