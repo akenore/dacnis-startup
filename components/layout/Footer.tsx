@@ -35,14 +35,15 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
   );
 
   return (
-    <footer className="relative bg-slate-950 border-t border-white/5 pt-20 pb-10 overflow-hidden">
+    <footer className="relative bg-slate-950 border-t border-white/5 pt-16 pb-10 overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+        {/* One row on desktop: brand, then Company, Services and Partners side by side. */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-x-8 gap-y-10 mb-12">
           {/* NAP block: identical to the JSON-LD organization and llms.txt */}
-          <div className="flex flex-col gap-6 lg:col-span-2">
+          <div className="col-span-2 md:col-span-3 lg:col-span-5 flex flex-col gap-6">
             <Link href={href(locale, "home")} aria-label="Dacnis">
               <Image src="/images/logo-light.png" alt="Dacnis" width={480} height={301} sizes="90px" className="h-14 w-auto" />
             </Link>
@@ -67,8 +68,8 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
             </address>
           </div>
 
-          <div>
-            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">{t.company}</h2>
+          <div className="lg:col-span-2">
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">{t.company}</h2>
             <ul className="flex flex-col gap-3">
               {companyLinks.map((link) => (
                 <li key={link.href}>
@@ -78,7 +79,10 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
                 </li>
               ))}
             </ul>
-            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mt-10 mb-6">{t.services}</h2>
+          </div>
+
+          <div className="lg:col-span-3">
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">{t.services}</h2>
             <ul className="flex flex-col gap-3">
               {serviceKeys.map((key) => (
                 <li key={key}>
@@ -90,8 +94,8 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
             </ul>
           </div>
 
-          <div>
-            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">{t.partners}</h2>
+          <div className="col-span-2 md:col-span-1 lg:col-span-2">
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-5">{t.partners}</h2>
             {externalList(partners)}
           </div>
         </div>
