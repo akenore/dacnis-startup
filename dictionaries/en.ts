@@ -102,7 +102,7 @@ export const en = {
       {
         question: "Does Dacnis offer internships?",
         answer:
-          "Yes. Dacnis publishes internships, including end-of-studies projects (PFE), and job offers on its careers page, and accepts spontaneous applications at any time.",
+          "Yes. Dacnis publishes internships, including end-of-studies projects (PFE), and job offers on its careers page.",
       },
       {
         question: "How do I start a project with Dacnis?",
@@ -111,7 +111,7 @@ export const en = {
       },
     ],
     careersTitle: "Want to build with us?",
-    careersBody: "We recruit developers and interns in Sousse. See our open positions or send a spontaneous application.",
+    careersBody: "We recruit developers and interns in Sousse. See our open positions on the careers page.",
     careersLink: "See careers",
     ctaTitleA: "Let's build something",
     ctaTitleB: "extraordinary together",
@@ -264,7 +264,7 @@ export const en = {
   careers: {
     metaTitle: "Careers and internships at Dacnis",
     metaDescription:
-      "Jobs and internships (PFE) at Dacnis, a software agency in Sousse, Tunisia. See open positions in web, mobile and AI development, or send a spontaneous application.",
+      "Jobs and internships (PFE) at Dacnis, a software agency in Sousse, Tunisia. See open positions in web, mobile and AI development.",
     eyebrow: "Careers",
     title: "Build the digital future with us",
     intro:
@@ -277,7 +277,7 @@ export const en = {
     ],
     openingsTitle: "Open positions",
     openingsCount: "{count} open positions",
-    empty: "There are no open positions right now. You can still send a spontaneous application below.",
+    empty: "There are no open positions right now. New offers are posted here first, so check back soon.",
     types: { FULL_TIME: "Full-time", PART_TIME: "Part-time", INTERN: "Internship", CONTRACTOR: "Contract" },
     workplaces: { onsite: "On site", hybrid: "Hybrid", remote: "Remote" },
     location: "Sousse, Tunisia",

@@ -98,7 +98,7 @@ export const fr: Dictionary = {
       {
         question: "Dacnis propose-t-elle des stages ?",
         answer:
-          "Oui. Dacnis publie des stages, dont des projets de fin d'études (PFE), et des offres d'emploi sur sa page carrières, et accepte les candidatures spontanées à tout moment.",
+          "Oui. Dacnis publie des stages, dont des projets de fin d'études (PFE), et des offres d'emploi sur sa page carrières.",
       },
       {
         question: "Comment démarrer un projet avec Dacnis ?",
@@ -107,7 +107,7 @@ export const fr: Dictionary = {
       },
     ],
     careersTitle: "Envie de construire avec nous ?",
-    careersBody: "Nous recrutons des développeurs et des stagiaires à Sousse. Consultez nos offres ou envoyez une candidature spontanée.",
+    careersBody: "Nous recrutons des développeurs et des stagiaires à Sousse. Consultez nos offres sur la page carrières.",
     careersLink: "Voir les carrières",
     ctaTitleA: "Construisons quelque chose",
     ctaTitleB: "d'extraordinaire ensemble",
@@ -261,7 +261,7 @@ export const fr: Dictionary = {
   careers: {
     metaTitle: "Carrières et stages chez Dacnis",
     metaDescription:
-      "Offres d'emploi et de stage (PFE) chez Dacnis, agence logicielle à Sousse, en Tunisie. Consultez les postes ouverts en développement web, mobile et IA, ou envoyez une candidature spontanée.",
+      "Offres d'emploi et de stage (PFE) chez Dacnis, agence logicielle à Sousse, en Tunisie. Consultez les postes ouverts en développement web, mobile et IA.",
     eyebrow: "Carrières",
     title: "Construisez le futur numérique avec nous",
     intro:
@@ -274,7 +274,7 @@ export const fr: Dictionary = {
     ],
     openingsTitle: "Postes ouverts",
     openingsCount: "{count} postes ouverts",
-    empty: "Aucun poste n'est ouvert pour le moment. Vous pouvez toujours envoyer une candidature spontanée ci-dessous.",
+    empty: "Aucun poste n'est ouvert pour le moment. Les nouvelles offres sont publiées ici en premier : revenez bientôt.",
     types: { FULL_TIME: "CDI temps plein", PART_TIME: "Temps partiel", INTERN: "Stage", CONTRACTOR: "Freelance" },
     workplaces: { onsite: "Sur site", hybrid: "Hybride", remote: "Télétravail" },
     location: "Sousse, Tunisie",

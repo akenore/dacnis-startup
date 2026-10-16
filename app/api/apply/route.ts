@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { emailLayout, escapeHtml, isEmail, sendEmail, text } from "@/lib/email";
 import { hasLocale } from "@/lib/i18n";
 import { jobStatus } from "@/lib/jobs";
-import { addApplication, getJob, markApplicationEmailed, saveCv } from "@/lib/server/careers";
+import { addApplication, getJob, markApplicationEmailed, openJobs, saveCv } from "@/lib/server/careers";
 import { clientIp, rateLimit } from "@/lib/server/rate-limit";
 import { alertNewApplication } from "@/lib/server/whatsapp";
 import { site } from "@/lib/site";
@@ -45,8 +45,12 @@ export async function POST(request: Request) {
   const locale = hasLocale(rawLocale) ? rawLocale : "en";
 
   // An offer must exist, be published and still open: closed offers accept no application.
+  // Spontaneous applications are only taken while at least one offer is open, like on the page.
   const jobId = text(form.get("jobId"), 64) || null;
   let position = locale === "fr" ? "Candidature spontanée" : "Spontaneous application";
+  if (!jobId && (await openJobs()).length === 0) {
+    return NextResponse.json({ error: "Applications are closed." }, { status: 410 });
+  }
   if (jobId) {
     const job = await getJob(jobId);
     if (!job || jobStatus(job) !== "open") return NextResponse.json({ error: "This offer is closed." }, { status: 410 });

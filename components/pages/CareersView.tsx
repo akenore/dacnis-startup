@@ -121,10 +121,14 @@ export default async function CareersView({ locale, dict }: { locale: Locale; di
               {t.openingsTitle}
             </h2>
             <div className="flex items-center gap-5 text-sm">
-              {jobs.length > 0 && <p className="text-slate-400">{fill(t.openingsCount, { count: jobs.length })}</p>}
-              <a href="#spontaneous" className="text-cyan-400 hover:text-cyan-300 font-semibold">
-                {t.spontaneousButton}
-              </a>
+              {jobs.length > 0 && (
+                <>
+                  <p className="text-slate-400">{fill(t.openingsCount, { count: jobs.length })}</p>
+                  <a href="#spontaneous" className="text-cyan-400 hover:text-cyan-300 font-semibold">
+                    {t.spontaneousButton}
+                  </a>
+                </>
+              )}
             </div>
           </div>
 
@@ -154,7 +158,9 @@ export default async function CareersView({ locale, dict }: { locale: Locale; di
           )}
         </section>
 
-        <section id="spontaneous" aria-labelledby="spontaneous-title" className="scroll-mt-28">
+        {/* Applications are only taken while at least one offer is open (the API enforces it too). */}
+        {jobs.length > 0 && (
+          <section id="spontaneous" aria-labelledby="spontaneous-title" className="scroll-mt-28">
           <GlassCard className="p-8 md:p-12" hoverable={false}>
             <div className="flex items-start gap-4 mb-8">
               <span className="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400">
@@ -169,13 +175,15 @@ export default async function CareersView({ locale, dict }: { locale: Locale; di
             </div>
             <ApplyForm copy={t.form} locale={locale} jobId={null} position={t.form.spontaneous} whatsapp={site.whatsapp} />
           </GlassCard>
-          <p className="text-slate-500 text-sm text-center mt-6">
-            {t.hrNote}{" "}
-            <a href={`mailto:${site.hrEmail}`} className="text-cyan-400 hover:text-cyan-300">
-              {site.hrEmail}
-            </a>
-          </p>
-        </section>
+          </section>
+        )}
+
+        <p className="text-slate-500 text-sm text-center mt-6">
+          {t.hrNote}{" "}
+          <a href={`mailto:${site.hrEmail}`} className="text-cyan-400 hover:text-cyan-300">
+            {site.hrEmail}
+          </a>
+        </p>
       </div>
     </div>
   );
