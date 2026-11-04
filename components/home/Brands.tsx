@@ -6,15 +6,20 @@ import type { Locale } from "@/lib/i18n";
 /** Client logos. Each tile links to the client's live site. */
 export function ClientLogos({ locale, newTab }: { locale: Locale; newTab: string }) {
   return (
-    <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+    // Flex wrap rather than a grid: an incomplete last row stays centred whatever the number of clients.
+    <ul className="flex flex-wrap justify-center gap-4">
       {clients.map((client, i) => (
-        <li key={client.name} className="reveal" style={{ "--i": i % 3 } as React.CSSProperties}>
+        <li
+          key={client.name}
+          className="reveal w-[calc((100%-1rem)/2)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-5rem)/6)]"
+          style={{ "--i": i % 3 } as React.CSSProperties}
+        >
           <a
             href={brandUrl(client, locale)}
             target="_blank"
             rel="noopener"
             aria-label={`${client.name} (${newTab})`}
-            className="group flex h-24 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-5 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.08]"
+            className="group flex h-24 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-3 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.08]"
           >
             <Image
               src={client.logo}

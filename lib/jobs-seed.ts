@@ -1,8 +1,10 @@
 import type { Job } from "@/lib/jobs";
 
 /**
- * Offers written into the careers store the first time it is created (empty DATA_DIR).
- * After that, offers are managed from /dashboard and this file is never read again.
+ * Offers shipped with the code. Each one is added to the careers store once, on the first start
+ * after it appears here (lib/server/careers.ts tracks which ids were already added). After that
+ * it is managed in /dashboard like any other offer: deleting it there does not bring it back.
+ * The usual way to post an offer stays the dashboard; use this file only to ship one with a deploy.
  */
 export const seedJobs: Job[] = [
   {
@@ -121,6 +123,78 @@ export const seedJobs: Job[] = [
           "Un encadrement par un développeur senior et un rapport de PFE suivi",
           "Travail hybride depuis nos bureaux de Sousse",
           "Possibilité d'embauche à la fin du stage",
+        ],
+      },
+    },
+  },
+  {
+    id: "ai-trainer-2026",
+    slug: { en: "ai-engineer-corporate-trainer", fr: "ingenieur-ia-formateur-entreprise" },
+    employmentType: "FULL_TIME",
+    workplace: "hybrid",
+    datePosted: "2026-11-04",
+    validThrough: "2026-12-31",
+    content: {
+      en: {
+        title: "AI Engineer and Corporate Trainer",
+        summary:
+          "Design and deliver hands-on artificial intelligence training for our client companies, from executive workshops to technical bootcamps on generative AI, large language models and automation.",
+        responsibilities: [
+          "Design training programmes on generative AI, LLMs, prompt engineering, RAG and AI automation, adapted to each company's sector and level",
+          "Run workshops and courses at client sites, at our Sousse office and online, in French and English",
+          "Build practical exercises and demos on real business cases: document processing, customer support, reporting",
+          "Assess participants and measure what each training changes in their work",
+          "Keep course material current with new models and tools (OpenAI, Gemini, Claude, open-source models)",
+          "Bring your engineering skills to Dacnis AI integration projects between trainings",
+        ],
+        requirements: [
+          "Engineering or master's degree in computer science, data science or artificial intelligence",
+          "At least 2 years of hands-on experience building machine learning or LLM-based applications (Python, APIs, RAG)",
+          "Proven experience teaching, training or presenting to professional audiences",
+          "Fluent French and good English, with the ability to explain technical topics to non-technical people",
+          "Willing to travel to client sites across Tunisia",
+        ],
+        niceToHave: [
+          "A trainer certification or previous work with a training centre",
+          "Experience with Microsoft Copilot, Power Automate, n8n or Make",
+          "Arabic, for some client sessions",
+        ],
+        offer: [
+          "A full-time role in a growing software and AI team",
+          "Varied training missions with companies from many sectors",
+          "Time and budget to learn new AI tools and earn certifications",
+          "Hybrid work from our Sousse office",
+        ],
+      },
+      fr: {
+        title: "Ingénieur IA et Formateur en Entreprise",
+        summary:
+          "Concevez et animez des formations pratiques en intelligence artificielle pour nos entreprises clientes, des ateliers pour dirigeants aux bootcamps techniques sur l'IA générative, les grands modèles de langage et l'automatisation.",
+        responsibilities: [
+          "Concevoir des programmes de formation sur l'IA générative, les LLM, le prompt engineering, le RAG et l'automatisation, adaptés au secteur et au niveau de chaque entreprise",
+          "Animer des ateliers et des formations chez nos clients, dans nos bureaux de Sousse et en ligne, en français et en anglais",
+          "Créer des exercices et des démonstrations sur des cas métier réels : traitement de documents, support client, reporting",
+          "Évaluer les participants et mesurer ce que chaque formation change dans leur travail",
+          "Tenir les supports à jour avec les nouveaux modèles et outils (OpenAI, Gemini, Claude, modèles open source)",
+          "Mettre vos compétences d'ingénieur au service des projets d'intégration IA de Dacnis entre deux formations",
+        ],
+        requirements: [
+          "Diplôme d'ingénieur ou master en informatique, data science ou intelligence artificielle",
+          "Au moins 2 ans d'expérience pratique dans le développement d'applications de machine learning ou à base de LLM (Python, API, RAG)",
+          "Une expérience avérée d'enseignement, de formation ou de présentation devant un public professionnel",
+          "Français courant et bon anglais, avec la capacité d'expliquer des sujets techniques à des non-spécialistes",
+          "Disponible pour des déplacements chez nos clients dans toute la Tunisie",
+        ],
+        niceToHave: [
+          "Une certification de formateur ou une expérience avec un centre de formation",
+          "Une expérience avec Microsoft Copilot, Power Automate, n8n ou Make",
+          "L'arabe, pour certaines sessions clients",
+        ],
+        offer: [
+          "Un poste à temps plein dans une équipe logicielle et IA en pleine croissance",
+          "Des missions de formation variées auprès d'entreprises de nombreux secteurs",
+          "Du temps et un budget pour apprendre de nouveaux outils d'IA et passer des certifications",
+          "Travail hybride depuis nos bureaux de Sousse",
         ],
       },
     },

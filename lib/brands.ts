@@ -72,6 +72,55 @@ export const clients: Brand[] = [
       fr: "vente de pièces détachées pour vélos et motos",
     },
   },
+  {
+    name: "PrestaFormance",
+    url: "https://www.prestaformance.com/",
+    logo: "/images/clients/prestaformance.svg",
+    width: 2465,
+    height: 868,
+    activity: {
+      en: "approved training centre in Sousse: certified courses, consulting and coworking",
+      fr: "cabinet de formation agréé à Sousse : formations certifiantes, consulting et coworking",
+    },
+  },
+  {
+    name: "LMH Négoce",
+    url: "https://www.lmhnegoce.com.tn/",
+    logo: "/images/clients/lmh-negoce.png",
+    width: 640,
+    height: 428,
+    activity: {
+      en: "hotel, restaurant and café equipment supplier in Tunisia",
+      fr: "équipement hôtelier, restauration et café en Tunisie",
+    },
+  },
+  {
+    name: "Nadini",
+    url: "https://www.nadini.tn/fr",
+    logo: "/images/clients/nadini.svg",
+    width: 1359,
+    height: 514,
+    activity: {
+      en: "QR car sticker that alerts the owner on WhatsApp while keeping their number private",
+      fr: "sticker QR pour voiture qui alerte le propriétaire sur WhatsApp sans dévoiler son numéro",
+    },
+  },
+  {
+    name: "Wasayef",
+    url: "https://www.wasayef.com.qa/",
+    logo: "/images/clients/wasayef.png",
+    width: 316,
+    height: 231,
+    activity: { en: "online perfume and oud store in Qatar", fr: "boutique en ligne de parfums et d'oud au Qatar" },
+  },
+  {
+    name: "C2it",
+    url: "https://c2it.lu/",
+    logo: "/images/clients/c2it.png",
+    width: 149,
+    height: 80,
+    activity: { en: "building and IT services company in Luxembourg", fr: "entreprise de services bâtiment et informatique au Luxembourg" },
+  },
 ];
 
 export const partners: Brand[] = [

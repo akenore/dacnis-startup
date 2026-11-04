@@ -35,7 +35,12 @@ interface StoreData {
   version: 1;
   jobs: StoredJob[];
   applications: Application[];
+  /** Offers from lib/jobs-seed.ts already added once; they are never added again, even if deleted. */
+  importedSeedIds?: string[];
 }
+
+/** Stores created before importedSeedIds existed already received these two offers. */
+const legacySeedIds = ["fullstack-intern-2027", "mobile-intern-2027"];
 
 // The data folder is chosen at runtime and lives outside the build: turbopackIgnore keeps the
 // build from tracing (and shipping) the whole project because of this dynamic path.
@@ -58,13 +63,44 @@ export const readCv = (file: string) => fs.readFile(cvPath(file));
 
 // Shared through globalThis: route handlers and pages can be bundled as separate modules.
 const shared = globalThis as typeof globalThis & {
-  __careersStore?: { queue: Promise<unknown>; cache: { mtimeMs: number; data: StoreData } | null; seeding?: Promise<void> };
+  __careersStore?: {
+    queue: Promise<unknown>;
+    cache: { mtimeMs: number; data: StoreData } | null;
+    seeding?: Promise<void>;
+    importing?: Promise<void>;
+  };
 };
 const state = (shared.__careersStore ??= { queue: Promise.resolve(), cache: null });
 
+const fromSeed = (job: Job, now: string): StoredJob => ({ ...job, published: true, createdAt: now, updatedAt: now });
+
 function seed(): StoreData {
   const now = new Date().toISOString();
-  return { version: 1, jobs: seedJobs.map((job) => ({ ...job, published: true, createdAt: now, updatedAt: now })), applications: [] };
+  return {
+    version: 1,
+    jobs: seedJobs.map((job) => fromSeed(job, now)),
+    applications: [],
+    importedSeedIds: seedJobs.map((job) => job.id),
+  };
+}
+
+/**
+ * Adds offers written in lib/jobs-seed.ts after the store was created, once: this is how an
+ * offer can ship with a deploy. From then on it is edited or deleted in the dashboard.
+ */
+function withNewSeedJobs(data: StoreData): StoreData | null {
+  const imported = new Set(data.importedSeedIds ?? legacySeedIds);
+  const pending = seedJobs.filter((job) => !imported.has(job.id));
+  if (!pending.length) return null;
+  const now = new Date().toISOString();
+  const next = { ...data, jobs: [...data.jobs], importedSeedIds: [...imported] };
+  for (const job of pending) {
+    next.importedSeedIds.push(job.id);
+    const clash = next.jobs.some((j) => j.id === job.id || j.slug.en === job.slug.en || j.slug.fr === job.slug.fr);
+    if (clash) console.warn(`[careers] seed offer "${job.id}" skipped: its id or URL is already used.`);
+    else next.jobs.push(fromSeed(job, now));
+  }
+  return next;
 }
 
 async function persist(data: StoreData) {
@@ -80,6 +116,15 @@ async function load(): Promise<StoreData> {
     const { mtimeMs } = await fs.stat(storeFile());
     if (state.cache?.mtimeMs === mtimeMs) return state.cache.data;
     const data = JSON.parse(await fs.readFile(storeFile(), "utf8")) as StoreData;
+    const updated = withNewSeedJobs(data);
+    if (updated) {
+      // Every concurrent read waits on the same single write, so the import happens once.
+      await (state.importing ??= persist(updated).catch((error) => {
+        state.importing = undefined; // retried on the next read
+        throw error;
+      }));
+      return load();
+    }
     state.cache = { mtimeMs, data };
     return data;
   } catch (error) {
