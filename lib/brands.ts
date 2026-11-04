@@ -95,6 +95,17 @@ export const clients: Brand[] = [
     },
   },
   {
+    name: "Kobox",
+    url: "https://www.kobox.tn/",
+    logo: "/images/clients/kobox.png",
+    width: 447,
+    height: 432,
+    activity: {
+      en: "Tunisian maker of corrugated cardboard packaging, displays and cardboard furniture",
+      fr: "fabricant tunisien d'emballages en carton ondulé, de PLV et de mobilier carton",
+    },
+  },
+  {
     name: "Nadini",
     url: "https://www.nadini.tn/fr",
     logo: "/images/clients/nadini.svg",

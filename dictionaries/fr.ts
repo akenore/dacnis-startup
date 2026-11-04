@@ -93,7 +93,7 @@ export const fr: Dictionary = {
       {
         question: "Qui sont les clients et les partenaires de Dacnis ?",
         answer:
-          "Parmi les clients de Dacnis figurent Sepat Express, Top du Top, Dr. Amel Ben Brahim, Gisysco, Koktahome, Motobike, PrestaFormance, LMH Négoce et Nadini en Tunisie, Wasayef au Qatar et C2it au Luxembourg. Ses partenaires sont IsTech, entreprise informatique et de cybersécurité à Sousse, et Mustache Prod, maison de production vidéo à Sousse.",
+          "Parmi les clients de Dacnis figurent Sepat Express, Top du Top, Dr. Amel Ben Brahim, Gisysco, Koktahome, Motobike, PrestaFormance, LMH Négoce, Kobox et Nadini en Tunisie, Wasayef au Qatar et C2it au Luxembourg. Ses partenaires sont IsTech, entreprise informatique et de cybersécurité à Sousse, et Mustache Prod, maison de production vidéo à Sousse.",
       },
       {
         question: "Dacnis propose-t-elle des stages ?",

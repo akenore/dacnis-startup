@@ -97,7 +97,7 @@ export const en = {
       {
         question: "Who are Dacnis's clients and partners?",
         answer:
-          "Dacnis clients include Sepat Express, Top du Top, Dr. Amel Ben Brahim, Gisysco, Koktahome, Motobike, PrestaFormance, LMH Négoce and Nadini in Tunisia, Wasayef in Qatar and C2it in Luxembourg. Its partners are IsTech, an IT and cybersecurity company in Sousse, and Mustache Prod, a video production house in Sousse.",
+          "Dacnis clients include Sepat Express, Top du Top, Dr. Amel Ben Brahim, Gisysco, Koktahome, Motobike, PrestaFormance, LMH Négoce, Kobox and Nadini in Tunisia, Wasayef in Qatar and C2it in Luxembourg. Its partners are IsTech, an IT and cybersecurity company in Sousse, and Mustache Prod, a video production house in Sousse.",
       },
       {
         question: "Does Dacnis offer internships?",
